@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true" class="fa fa-times"></span>
-                    <span class="sr-only">Close</span>
+                    <span class="sr-only">{{ 'CLOSE' | translate }}</span>
                 </button>
                 <h3 class="modal-title" id="itemViewLabel">
                     <span data-ng-bind-html="marked(viewItem.title)"></span>
@@ -16,40 +16,40 @@
             <div class="modal-body">
                 <div class="view-item-details" style="background-color: {{ viewItem.color }}">
                     <p class="due-date" data-ng-if="viewItem.due_date" data-ng-class="{'dateNear': viewItem.dateNear, 'datePast': viewItem.datePast}">
-                        Due: {{ viewItem.due_date }}
+                        {{ 'DUE' | translate }}: {{ viewItem.due_date }}
                     </p>
                     <div class="description" data-ng-bind-html="marked(viewItem.description)"></div>
                     <div class="col-md-4 text-center">
-                        <p>Assigned To: <strong>{{ userNames[viewItem.assignee] }}</strong></p>
+                        <p>{{ 'ASSIGN_TO' | translate }}: <strong>{{ userNames[viewItem.assignee] }}</strong></p>
                     </div>
                     <div class="col-md-4 text-center">
                         <p data-ng-if="viewItem.category">Category: <strong>{{ categories[viewItem.category] }}</strong></p>
                     </div>
                     <div class="col-md-4 text-center">
-                        <p>Current Column: <strong>{{ viewItem.laneName }}</strong></p>
+                        <p>{{ 'CURRENT_COLUMN' | translate }}: <strong>{{ viewItem.laneName }}</strong></p>
                     </div>
                 </div>
                 <div class="view-item-actions">
                     <div class="text-center" data-ng-class="currentUser.isAdmin == 1 ? 'col-md-6' : 'col-md-12'">
                         <a class="btn btn-default" data-ng-class="{'disabled': viewItem.disabled}"
-                           data-ng-click="editItem()">Edit Item</a>
+                           data-ng-click="editItem()">{{ 'EDIT_ELEMENT' | translate }}</a>
                     </div>
                     <div data-ng-if="currentUser.isAdmin == 1" class="col-md-6 text-center">
                         <a class="btn btn-default" data-ng-class="{'disabled': viewItem.disabled}"
-                           data-ng-click="deleteItem()">Delete Item</a>
+                           data-ng-click="deleteItem()">{{ 'DELETE_ELEMENT' | translate }}</a>
                     </div>
                 </div>
                 <div class="view-item-attachments" data-ng-if="viewItem.ownAttachment.length">
-                    <h4>Attachments</h4>
+                    <h4>{{ 'ATTACHMENT' | translate }}</h4>
                     <div class="list-group">
                         <p class="list-group-item"
                            data-ng-repeat="attachment in viewItem.ownAttachment" data-ng-class-even="'alternate'">
                             {{ attachment.name }}
                             <span class="detail">
-                                Uploaded by {{ userNames[attachment.user_id] }} on {{ attachment.date }}
+                                {{ 'UPLOADED_BY' | translate }} {{ userNames[attachment.user_id] }} {{ 'ON_DATE' | translate }} {{ attachment.date }}
                             </span>
                             <span class="links pull-right" data-ng-show="attachmentDeleting[attachment.id]">
-                                <span class="fa fa-refresh fa-spin"></span> Deleting...
+                                <span class="fa fa-refresh fa-spin"></span> {{ 'DELETING' | translate }}
                             </span>
                             <span class="links pull-right" data-ng-hide="attachmentDeleting[attachment.id]">
                                 <a class="fa fa-eye" title="View"
@@ -64,18 +64,18 @@
                     </div>
                 </div>
                 <div class="view-item-attachment-form">
-                    <h4>Add Attachment</h4>
+                    <h4>{{ 'ADD_ATTACHMENT' | translate }}</h4>
                     <div class="form-group form-inline">
                         <input type="file" name="file" class="form-control"
                                data-file-upload="itemUpload" data-reset-flag="fileReset"
                                data-ng-disabled="viewItem.disabled">
                         <button type="submit" id="upload-attachment" class="btn btn-info"
                                 data-ng-class="{'disabled': viewItem.disabled}"
-                                data-ng-click="addItemAttachment()"><span class="fa fa-upload"></span> Upload</button>
+                                data-ng-click="addItemAttachment()"><span class="fa fa-upload"></span> {{ 'UPLOAD' | translate }}</button>
                     </div>
                 </div>
                 <div class="view-item-comments" data-ng-if="viewItem.ownComment.length">
-                    <h4>Comments
+                    <h4>{{ 'COMMENTS' | translate }}
                         <span class="pull-right pull-up">
                             <select class="form-control" data-ng-model="comments.sorting"
                                     data-ng-change="sortingChanged()"
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="edit-item-comment-form" data-ng-if="comment.isEdit">
-                    <h4>Edit Comment</h4>
+                    <h4>{{ 'EDIT_COMMENTS' | translate }}</h4>
                     <div class="form-group">
                         <textarea id="editComment" class="form-control" rows="4" data-ng-model="comment.editText"></textarea>
                         <button id="edit-comment" class="btn btn-info pull-right"
@@ -118,12 +118,12 @@
                     </div>
                 </div>
                 <div class="view-item-comment-form">
-                    <h4>Add Comment</h4>
+                    <h4>{{ 'ADD_COMMENTS' | translate }}</h4>
                     <div class="form-group">
                         <textarea id="itemComment" class="form-control" rows="4" data-ng-model="comment.text"></textarea>
                         <button id="add-comment" class="btn btn-info pull-right"
                                 data-ng-class="{ 'disabled': viewItem.disabled }"
-                                data-ng-click="addItemComment(comment.text)"><span class="fa fa-comment-o"></span> Submit Comment</button>
+                                data-ng-click="addItemComment(comment.text)"><span class="fa fa-comment-o"></span> {{ 'SUBMIT_COMMENT' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
             <span class="fa fa-angle-double-right" data-ng-click="toggle.sidebar = !toggle.sidebar"></span>
         </h3>
         <h3 class="modal-header text-center">
-            Activity
+            {{ 'ACTIVITY' | translate }}
             <span class="fa fa-angle-double-left pull-right" data-ng-click="toggle.sidebar = !toggle.sidebar"></span>
         </h3>
         <div class="sidebar-content">

@@ -1,24 +1,24 @@
 <div include-replace="partials/header.html"></div>
 <div id="board-nav">
     <p class="pull-left form-group form-inline">
-        Select Board:
+        {{ 'SELECT_BOARD' | translate }}
         <select class="form-control" data-ng-model="boardNames.current" data-ng-change="selectBoard()"
                                                                         data-ng-options="board.id as board.name for board in boardNames | filter: isActiveFilter">
         </select>
     </p>
     <p class="pull-right form-group form-inline" data-ng-if="!currentBoard.loading">
-        <label class="unbold">Hide Filtered Items:
+        <label class="unbold">{{ 'HIDE_FILTERED_ITEMS' | translate }}
             <input type="checkbox" data-ng-model="filter.hide" data-ng-change="filterChanged()">
         </label>
-        User Filter:
+        {{ 'USE_FILTER' | translate }}
         <select class="form-control" data-ng-model="filter.user" data-ng-change="filterChanged()"
                 data-ng-options="user.id as user.username for user in currentBoard.sharedUser">
-            <option value="">Any</option>
+            <option value="">{{ 'FILTER_ANY' | translate }}</option>
         </select>
-        <span data-ng-if="currentBoard.ownCategory">Category Filter:
+        <span data-ng-if="currentBoard.ownCategory">{{ 'CATEGORY_FILTER' | translate }}
             <select class="form-control" data-ng-model="filter.category" data-ng-change="filterChanged()"
                     data-ng-options="cat.id as cat.name for cat in currentBoard.ownCategory">
-                <option value="">Any</option>
+                <option value="">{{ 'FILTER_ANY' | translate }}</option>
             </select>
         </span>
     </p>
@@ -30,12 +30,12 @@
         <div id="boardColumns">
             <div class="col-md-6 col-md-offset-3 settings-widget text-center" data-ng-if="currentBoard.loading">
                 <h3 data-ng-if="!currentBoard.error">
-                    <span class="fa fa-refresh fa-spin"></span> Loading Board...
+                    <span class="fa fa-refresh fa-spin"></span> {{ 'LOADING_BOARD' | translate }}
                 </h3>
                 <span data-ng-if="currentBoard.error">
-                    <h3><span class="fa fa-exclamation-triangle"></span> Error Loading Board</h3>
-                    <p>Maybe it doesn't exist anymore. Maybe you've been removed from it.</p>
-                    <p>Try using the board list above, or checking your <a href="#/settings">Settings</a>.</p>
+                    <h3><span class="fa fa-exclamation-triangle"></span> {{ 'ERROR_LOADING_BOARD' | translate }}</h3>
+                    <p>{{ 'ERROR_BOARD_DONT_EXISTS' | translate }}</p>
+                    <p>{{ 'SELECT_BOARD_FROM_LIST' | translate }} <a href="#/settings">{{ 'SETTINGS' | translate }}</a>.</p>
                 </span>
             </div>
             <div class="boardColumn" data-ng-repeat="lane in currentBoard.ownLane | orderBy:'position':false"
@@ -66,7 +66,7 @@
                         <div class="description" data-ng-bind-html="marked(item.description)"></div>
                         <p class="assignee">
                             <span data-ng-show="currentUser.options.showAssignee">
-                                <span data-ng-if="userNames[item.assignee]">Assigned To: </span>
+                                <span data-ng-if="userNames[item.assignee]">{{ 'ASSIGN_TO' | translate }}: </span>
                                 {{ userNames[item.assignee] }}
                             </span>
                             <span class="pull-right">
@@ -83,7 +83,7 @@
                         </p>
                     </div>
                     <div class="addItem form-inline">
-                        <input class="form-control" type="text" data-ng-model="quickAdd.title[lane.id]" placeholder="Quick Add Item Title - Leave Blank for Dialog">
+                        <input class="form-control" type="text" data-ng-model="quickAdd.title[lane.id]" placeholder="{{ 'QUICK_ADD_BLANK_FOR_DIALOG' | translate }}">
                         <a role="button" class="btn btn-default fa fa-plus form-control" data-toggle="modal"
                            data-target=".itemModal" data-ng-click="itemFormData.reset(lane.id)" title="Add Item"></a>
                     </div>
@@ -94,23 +94,23 @@
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation">
                         <a role="menuitem" class="default-cursor" data-ng-click="openItem(contextItem)">
-                            View Item
+                            {{ 'VIEW_ITEM' | translate }}
                         </a>
                     </li>
                     <li role="presentation">
                         <a role="menuitem" class="default-cursor" data-ng-click="openEditItem()">
-                            Edit Item
+                            {{ 'EDIT_ELEMENT' | translate }}
                         </a>
                     </li>
                     <li role="presentation" data-ng-if="currentUser.isAdmin">
                         <a role="menuitem" class="default-cursor" data-ng-click="removeItem()">
-                            Delete Item
+                            {{ 'DELETE_ELEMENT' | translate }}
                         </a>
                     </li>
                     <li role="presentation" class="divider"></li>
                     <li role="presentation">
                         <span class="contextItemWrap">
-                            Move to Column:<br />
+                            {{ 'MOVE_TO_COLUMN' | translate }}<br />
                             <select class="form-control"
                                     data-ng-model="contextItem.lane_id"
                                     data-ng-change="changeItemLane()"
@@ -121,7 +121,7 @@
                     <li role="presentation" class="divider"></li>
                     <li role="presentation">
                         <a role="menuitem" class="default-cursor" data-ng-click="openAddItem()">
-                            Add New Item
+                            {{ 'ADD_NEW_ELEMENT' | translate }}
                         </a>
                     </li>
                 </ul>
@@ -130,7 +130,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation">
                         <a role="menuitem" class="default-cursor" data-ng-click="openAddItem()">
-                            Add New Item
+                            {{ 'ADD_NEW_ELEMENT' | translate }}
                         </a>
                     </li>
                 </ul>
@@ -138,4 +138,3 @@
         </div>
     </div>
 </div>
-
