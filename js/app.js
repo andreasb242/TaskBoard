@@ -3,14 +3,20 @@ var taskBoardControllers = angular.module('TaskBoardControllers', []);
 var taskBoardDirectives = angular.module('TaskBoardDirectives', []);
 
 var taskBoard = angular.module('TaskBoard',
-                               ['ngRoute', 'ngSanitize',
+                               ['ngRoute', 'ngSanitize', 'pascalprecht.translate',
                                 'ng-context-menu',
                                 'TaskBoardServices',
                                 'TaskBoardControllers',
                                 'TaskBoardDirectives']);
 
-taskBoard.config(['$routeProvider', '$httpProvider',
-function($routeProvider, $httpProvider) {
+taskBoard.config(['$routeProvider', '$httpProvider', '$translateProvider',
+function($routeProvider, $httpProvider, $translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+      prefix: 'locales/locale-',
+      suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('de');
+
     $routeProvider.when('/', {
         controller: 'LoginCtrl',
         templateUrl: 'partials/login.html'
